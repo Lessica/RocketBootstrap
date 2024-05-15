@@ -16,7 +16,7 @@ kern_return_t rocketbootstrap_look_up(mach_port_t bootstrap_port, const name_t s
 kern_return_t rocketbootstrap_unlock(const name_t service_name);
 // Register a port with and grant system-wide access to a particular service name
 // Note: Will return an error if called from within a sandboxed process
-kern_return_t rocketbootstrap_register(mach_port_t bootstrap_port, name_t service_name, mach_port_t service_port);
+kern_return_t rocketbootstrap_register(mach_port_t bootstrap_port, const name_t service_name, mach_port_t service_port);
 
 
 // CFMessagePort helpers

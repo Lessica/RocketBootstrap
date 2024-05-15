@@ -7,3 +7,5 @@ obj
 .DS_Store
 layout
 packages
+compile_commands.json
+.cache

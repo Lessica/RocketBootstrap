@@ -289,7 +289,7 @@ kern_return_t rocketbootstrap_unlock(const name_t service_name)
 }
 
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-kern_return_t rocketbootstrap_register(mach_port_t bp, name_t service_name, mach_port_t sp)
+kern_return_t rocketbootstrap_register(mach_port_t bp, const name_t service_name, mach_port_t sp)
 {
 	if (rocketbootstrap_uses_name_redirection()) {
 		char redirected_name[BOOTSTRAP_MAX_NAME_LEN];

@@ -1,6 +1,7 @@
 TARGET := iphone:clang:latest:13.0
 ARCHS := arm64 arm64e
 INSTALL_TARGET_PROCESSES = SpringBoard MobileGestaltHelper rocketd _rocketd_reenable
+GO_EASY_ON_ME = 1
 
 ifeq ($(ROOTLESS),1)
 export THEOS_PACKAGE_SCHEME := rootless
