@@ -3,10 +3,6 @@ ARCHS := arm64 arm64e
 INSTALL_TARGET_PROCESSES = SpringBoard MobileGestaltHelper rocketd _rocketd_reenable
 GO_EASY_ON_ME = 1
 
-ifeq ($(ROOTLESS),1)
-export THEOS_PACKAGE_SCHEME := rootless
-endif
-
 LIBRARY_NAME := librocketbootstrap
 librocketbootstrap_FILES += Tweak.x Shims.x
 ifeq ($(THEOS_PACKAGE_SCHEME),rootless)
@@ -42,13 +38,11 @@ include $(THEOS_MAKE_PATH)/tool.mk
 before-all::
 	@rm -rf layout
 	@mkdir -p layout
-	@[ "$$ROOTLESS" = "1" ] && cp -rP defaultlayout/DEBIAN defaultlayout/var layout/ || true
-	@[ "$$ROOTLESS" = "" ] && cp -rP defaultlayout/DEBIAN defaultlayout/Library layout/ || true
+	@[ "$$THEOS_PACKAGE_SCHEME" = "rootless" ] && cp -rP defaultlayout/DEBIAN defaultlayout/var/jb/Library layout/ || true
+	@[ "$$THEOS_PACKAGE_SCHEME" = "" ] && cp -rP defaultlayout/DEBIAN defaultlayout/Library layout/ || true
 
 stage::
 	@mkdir -p "$(THEOS_STAGING_DIR)/usr/include"
 	@cp -a rocketbootstrap.h rocketbootstrap_dynamic.h "$(THEOS_STAGING_DIR)/usr/include"
 	@plutil -convert binary1 "$(THEOS_STAGING_DIR)/Library/MobileSubstrate/DynamicLibraries/RocketBootstrap.plist" || true
 	@plutil -convert binary1 "$(THEOS_STAGING_DIR)/Library/LaunchDaemons/com.rpetrich.rocketbootstrapd.plist" || true
-	@plutil -convert binary1 "$(THEOS_STAGING_DIR)/var/jb/Library/MobileSubstrate/DynamicLibraries/RocketBootstrap.plist" || true
-	@plutil -convert binary1 "$(THEOS_STAGING_DIR)/var/jb/Library/LaunchDaemons/com.rpetrich.rocketbootstrapd.plist" || true
